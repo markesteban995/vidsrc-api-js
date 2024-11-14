@@ -1,5 +1,7 @@
 export async function getvidsrc(tmdb_id, s, e) {
-  const DOMAIN = "https://embed.su";
+  //const DOMAIN = "https://embed.su";
+  const DOMAIN = "https://vidsrc.cc";
+
   const headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     'Referer': `${DOMAIN}`,
@@ -10,9 +12,9 @@ export async function getvidsrc(tmdb_id, s, e) {
     let urlSearch = '';
 
     if(s && e){
-      urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${s}/${e}`;
+      urlSearch = `${DOMAIN}/v2/embed/tv/${tmdb_id}/${s}/${e}`;
     } else {
-      urlSearch = `${DOMAIN}/embed/movie/${tmdb_id}`;
+      urlSearch = `${DOMAIN}/v2/embed/movie/${tmdb_id}`;
     }
     
     const htmlSearch = await fetch(urlSearch, {
@@ -44,14 +46,14 @@ export async function getvidsrc(tmdb_id, s, e) {
 
     for (let i = 0; i < secondDecode.length; i++) {
       const item = secondDecode[i];
-      if (item.name.toLowerCase() != "viper") {
+      /* if (item.name.toLowerCase() != "viper") {
         continue;
-      }
+      }  */
 
-      const urlDirect = `${DOMAIN}/api/e/${item.hash}`;
-      //onst urlDirect = `${DOMAIN}/vidplay/e/${item.hash}`;
+      //const urlDirect = `${DOMAIN}/api/e/${item.hash}`;
+      const urlDirect = `${DOMAIN}/vidplay/e/${item.hash}`;
       const dataDirect = await request_get(urlDirect, {
-        "Referer": "https://embed.su/",
+        "Referer": `${DOMAIN}`,
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
       }, false);
@@ -91,9 +93,9 @@ export async function getvidsrc(tmdb_id, s, e) {
 
       for (let k = 0; k < parseDirectSize.length; k++) {
         const item = parseDirectSize[k];
-        if (item.indexOf('/proxy/') == -1) {
+      /*   if (item.indexOf('/proxy/') == -1) {
           continue;
-        }
+        } */
         patternSize.push(item);
       }
 
@@ -103,7 +105,7 @@ export async function getvidsrc(tmdb_id, s, e) {
         const sizeQualityMatch = patternItem.match(/\/([0-9]+)\//i);
         const sizeQuality = sizeQualityMatch ? Number(sizeQualityMatch[1]) : 1080;
         let dURL = `${DOMAIN}${patternItem}`;
-        dURL = dURL.replace("embed.su/api/proxy/viper/", "");
+        //dURL = dURL.replace("embed.su/api/proxy/viper/", "");
         //dURL = dURL.replace("vidsrc.cc/v2/", "");
         dURL = dURL.replace(".png", ".m3u8");
         directQuality.push({
@@ -121,7 +123,7 @@ export async function getvidsrc(tmdb_id, s, e) {
 
       const results = {
         headers: {
-          "Referer": "https://embed.su/",
+          "Referer": `${DOMAIN}`,
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
         },
