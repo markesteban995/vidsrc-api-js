@@ -103,8 +103,8 @@ export async function getvidsrc(tmdb_id, s, e) {
         const sizeQualityMatch = patternItem.match(/\/([0-9]+)\//i);
         const sizeQuality = sizeQualityMatch ? Number(sizeQualityMatch[1]) : 1080;
         let dURL = `${DOMAIN}${patternItem}`;
-        //dURL = dURL.replace("embed.su/api/proxy/viper/", "");
-        dURL = dURL.replace("vidsrc.cc/v2/", "");
+        dURL = dURL.replace("embed.su/api/proxy/viper/", "");
+        //dURL = dURL.replace("vidsrc.cc/v2/", "");
         dURL = dURL.replace(".png", ".m3u8");
         directQuality.push({
           url: dURL,
