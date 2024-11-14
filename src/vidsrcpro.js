@@ -1,5 +1,5 @@
 export async function getvidsrc(tmdb_id, s, e) {
-  const DOMAIN = "https://embed.su";
+  const DOMAIN = "https://vidsrc.cc";
   const headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     'Referer': `${DOMAIN}`,
@@ -10,9 +10,9 @@ export async function getvidsrc(tmdb_id, s, e) {
     let urlSearch = '';
 
     if(s && e){
-      urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${s}/${e}`;
+      urlSearch = `${DOMAIN}/v2/embed/tv/${tmdb_id}/${s}/${e}`;
     } else {
-      urlSearch = `${DOMAIN}/embed/movie/${tmdb_id}`;
+      urlSearch = `${DOMAIN}/v2/embed/movie/${tmdb_id}`;
     }
     
     const htmlSearch = await fetch(urlSearch, {
@@ -48,9 +48,10 @@ export async function getvidsrc(tmdb_id, s, e) {
         continue;
       }
 
-      const urlDirect = `${DOMAIN}/api/e/${item.hash}`;
+      //const urlDirect = `${DOMAIN}/api/e/${item.hash}`;
+      const urlDirect = `${DOMAIN}/vidplay/e/${item.hash}`;
       const dataDirect = await request_get(urlDirect, {
-        "Referer": "https://embed.su/",
+        "Referer": "https://vidsrc.cc/",
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
       }, false);
@@ -102,7 +103,8 @@ export async function getvidsrc(tmdb_id, s, e) {
         const sizeQualityMatch = patternItem.match(/\/([0-9]+)\//i);
         const sizeQuality = sizeQualityMatch ? Number(sizeQualityMatch[1]) : 1080;
         let dURL = `${DOMAIN}${patternItem}`;
-        dURL = dURL.replace("embed.su/api/proxy/viper/", "");
+        //dURL = dURL.replace("embed.su/api/proxy/viper/", "");
+        dURL = dURL.replace("vidsrc.cc/v2/", "");
         dURL = dURL.replace(".png", ".m3u8");
         directQuality.push({
           url: dURL,
@@ -119,7 +121,7 @@ export async function getvidsrc(tmdb_id, s, e) {
 
       const results = {
         headers: {
-          "Referer": "https://embed.su/",
+          "Referer": "https://vidsrc.cc/",
           "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "Accept": "*/*"
         },
