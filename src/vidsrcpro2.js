@@ -1,6 +1,6 @@
 export async function getvidsrc(tmdb_id, s, e) {
-  const DOMAIN = "https://embed.su";
-  //const DOMAIN = "https://vidsrc.cc";
+  //const DOMAIN = "https://embed.su";
+  const DOMAIN = "https://vidsrc.cc";
 
   const headers = {
     'user-agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -12,11 +12,11 @@ export async function getvidsrc(tmdb_id, s, e) {
     let urlSearch = '';
 
     if(s && e){
-      urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${s}/${e}`;
-      //urlSearch = `${DOMAIN}/v2/embed/tv/${tmdb_id}/${s}/${e}`;
+      //urlSearch = `${DOMAIN}/embed/tv/${tmdb_id}/${s}/${e}`;
+      urlSearch = `${DOMAIN}/v2/embed/tv/${tmdb_id}/${s}/${e}`;
     } else {
-      //urlSearch = `${DOMAIN}/v2/embed/movie/${tmdb_id}`;
-      urlSearch = `${DOMAIN}/embed/movie/${tmdb_id}`;
+      urlSearch = `${DOMAIN}/v2/embed/movie/${tmdb_id}`;
+      //urlSearch = `${DOMAIN}/embed/movie/${tmdb_id}`;
     }
     
     const htmlSearch = await fetch(urlSearch, {
@@ -32,7 +32,7 @@ export async function getvidsrc(tmdb_id, s, e) {
       return;
     } */
 
-     return hashEncodeMatch;
+     return textSearch;
 
   } catch (e) {
     const results = {
