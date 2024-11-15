@@ -23,7 +23,14 @@ export async function getvidsrc(tmdb_id, s, e) {
     });
     const textSearch = await htmlSearch.text();
 
-     return textSearch;
+    const hashEncodeMatch = textSearch.match(/JSON\.parse\(atob\(\`([^\`]+)/i);
+    const hashEncode = hashEncodeMatch ? hashEncodeMatch[1] : "";
+
+    if (!hashEncode) {
+      return;
+    }
+
+     return hashEncode;
 
   } catch (e) {
     const results = {
