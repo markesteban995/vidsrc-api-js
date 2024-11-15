@@ -1,5 +1,5 @@
 import express from "express";
-import { getvidsrc } from "./src/vidsrcpro.js";
+import { getvidsrc } from "./src/vidsrcpro2.js";
 import { getasiaheroku } from "./src/asiaheroku.js";
 
 const port = 3000;
