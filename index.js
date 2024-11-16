@@ -1,10 +1,12 @@
 import express from "express";
 import { getvidsrc } from "./src/vidsrcpro.js";
 import { getasiaheroku } from "./src/asiaheroku.js";
+import cors from "cors"
 
 const port = 3000;
 
 const app = express()
+app.use(cors())
 
 app.get('/', (req, res) => {
     res.status(200).json({
